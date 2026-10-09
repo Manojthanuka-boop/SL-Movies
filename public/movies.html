@@ -1,0 +1,16 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SL Movies — Movies</title>
+<link rel="stylesheet" href="/css/style.css"></head><body data-page="movies">
+<header class="site-header">
+  <a class="brand" href="/"><img src="/assets/sl-movies-logo.png" alt="SL Movies"></a>
+  <button class="menu-toggle" aria-label="Open menu">☰</button>
+  <nav class="nav">
+    <a data-nav="home" href="/">Home</a><a data-nav="movies" href="/movies.html">Movies</a>
+    <a data-nav="categories" href="/categories.html">Categories</a><a data-nav="about" href="/about.html">About</a>
+    <a class="nav-admin" href="/admin.html">Admin</a>
+  </nav>
+</header><main class="page-shell"><section class="page-title"><span class="eyebrow">THE LIBRARY</span><h1>All Movies</h1><p>Search, filter and sort your collection.</p></section>
+<section class="toolbar"><label class="search-box">⌕<input id="search" type="search" placeholder="Search titles, genres or descriptions..."></label>
+<select id="genre"><option value="">All genres</option><option>Action</option><option>Drama</option><option>Comedy</option><option>Thriller</option><option>Sci-Fi</option><option>Romance</option><option>Animation</option><option>Adventure</option><option>Horror</option><option>Documentary</option><option>Family</option><option>Crime</option></select>
+<select id="sort"><option value="featured">Featured</option><option value="rating">Highest rated</option><option value="year">Newest</option><option value="title">A–Z</option><option value="oldest">Oldest</option></select></section>
+<div id="movieGrid" class="movie-grid movie-grid-large"></div><div id="loading" class="loading">Loading movies…</div></main><footer class="footer"><div><strong>SL Movies</strong><span>© 2026 SL Movies</span></div><div><span>Movie library</span><span>Use only media you own or are authorized to distribute.</span></div></footer><script src="/js/site.js"></script></body></html>
