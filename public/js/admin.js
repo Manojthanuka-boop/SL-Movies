@@ -62,7 +62,12 @@ async function editMovie(id){
 function resetForm(){editingId=null;qs("#movieForm").reset();qs("#formTitle").textContent="Add new movie";qs("#submitBtn").textContent="Save movie →";qs("#cancelEdit").hidden=true}
 async function saveMovie(e){
  e.preventDefault();const f=qs("#movieForm"),msg=qs("#formMsg");const data=new FormData(f);
- try{msg.textContent=editingId?"Updating…":"Uploading…";const d=await api(editingId?`/api/admin/movies/${editingId}`:"/api/admin/movies",{method:editingId?"PUT":"POST",body:data});toast(editingId?"Movie updated.":"Movie uploaded.");resetForm();await refresh()}catch(err){msg.textContent=err.message;msg.className="form-message error";toast(err.message,true)}
+ try{msg.textContent=editingId?"Updating…":"Uploading…";
+  const opts={method:editingId?"PUT":"POST",body:data,credentials:"same-origin"};
+  if(csrf){const headers=new Headers();headers.set("X-CSRF-Token",csrf);opts.headers=headers;}
+  const r=await fetch(editingId?`/api/admin/movies/${editingId}`:"/api/admin/movies",opts);
+  let d={};try{d=await r.json()}catch{}if(!r.ok)throw new Error(d.error||"Request failed");
+  toast(editingId?"Movie updated.":"Movie uploaded.");resetForm();await refresh()}catch(err){msg.textContent=err.message;msg.className="form-message error";toast(err.message,true)}
 }
 async function toggleFeatured(id){try{const m=await allMovie(id);await api(`/api/admin/movies/${id}/featured`,{method:"PATCH",headers:{"Content-Type":"application/json"},body:JSON.stringify({featured:!m.featured})});toast(m.featured?"Removed from featured.":"Added to featured.");await refresh()}catch(e){toast(e.message,true)}}
 async function deleteMovie(id){if(!confirm("Delete this movie and its uploaded files?"))return;try{await api(`/api/admin/movies/${id}`,{method:"DELETE"});toast("Movie deleted.");await refresh()}catch(e){toast(e.message,true)}}
